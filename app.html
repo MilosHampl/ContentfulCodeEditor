@@ -6,6 +6,7 @@
 
     <!-- Load the ACE code editor -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.3/ace.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.3/ext-language_tools.js"></script>
     <style type="text/css" media="screen">
         #editor {
             position: absolute;
@@ -33,6 +34,15 @@
             //Set which mode the editor should be in (razor, csharp, css, html, javascript, ...)
             //This fetched from an instance parameter
             editor.session.setMode("ace/mode/" + api.parameters.instance.mode);
+
+            //Enable autocomplete
+            editor.setOptios({
+                enableBasicAutocomplete: true
+            });
+
+            //Beautify
+            var beautify = require("https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.3/ext-beautify.js");
+            beautify.beautify(editor);
 
             //If the value is defined, set it.
             if (val != undefined) editor.setValue(val, -1);

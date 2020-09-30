@@ -1,6 +1,7 @@
 {
+    "id": "code-editor",
     "name": "Code Editor",
-    "srcdoc": "codeeditor.html",
+    "srcdoc": "app.html",
     "fieldTypes": [
         "Text"
     ],

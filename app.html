@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://unpkg.com/contentful-ui-extensions-sdk@3"></script>
+
+    <!-- Load the ACE code editor -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.3/ace.js"></script>
+    <style type="text/css" media="screen">
+        #editor {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="editor"></div>
+    <script>
+        window.contentfulExtension.init(function (api) {
+            //Get the current field value
+            var val = api.field.getValue();
+
+            //Initialize the editor
+            var editor = ace.edit("editor");
+
+            //Set editor theme
+            editor.setTheme("ace/theme/monokai");
+
+            //Set which mode the editor should be in (razor, csharp, css, html, javascript, ...)
+            //This fetched from an instance parameter
+            editor.session.setMode("ace/mode/" + api.parameters.instance.mode);
+
+            //If the value is defined, set it.
+            if (val != undefined) editor.setValue(val, -1);
+
+            //When the editor leaves the field, update the value
+            editor.on("blur", function () { api.field.setValue(editor.getValue()); });
+
+            //Ensure proper height in our window
+            api.window.updateHeight(500);
+        });
+    </script>
+</body>
+
+</html>
